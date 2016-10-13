@@ -92,6 +92,45 @@ describe('JavaScript-Calculator', function(){
 
   });
 
+  describe('exponential power input', function(){
+
+    before(function (done) {
+        exp = true;
+        done();
+    });
+
+    it('should not accept "+" as exponential power', function(){
+        var result = operatorAsPower('+');
+        expect(result).to.be.true;
+    });
+
+    it('should not accept "-" as exponential power', function(){
+        var result = operatorAsPower('-');
+        expect(result).to.be.true;
+    });
+
+    it('should not accept "x" as exponential power', function(){
+        var result = operatorAsPower('x');
+        expect(result).to.be.true;
+    });
+
+    it('should not accept "÷" as exponential power', function(){
+        var result = operatorAsPower('÷');
+        expect(result).to.be.true;
+    });
+
+    it('should not accept "." as exponential power', function(){
+        var result = operatorAsPower('.');
+        expect(result).to.be.true;
+    });
+
+    it('should accept numbers as exponential power', function(){
+        var result = operatorAsPower('8');
+        expect(result).to.be.false;
+    });
+
+  });
+
   describe('clear input', function(){
     it('should clear the input', function(){
         input.value = "2+6";
@@ -114,6 +153,29 @@ describe('JavaScript-Calculator', function(){
         total(input);
         expect(input.value).to.equal('8');
     });
+  });
+
+  describe('exponential total', function(){
+    var base_input, power_input;
+    before(function(done){
+      base_input = document.createElement("input");
+      base_input.type = "text";
+      base_input.value = "2";
+      power_input = document.createElement("input");
+      power_input.type = "text";
+      power_input.value = "3";
+      done();
+    });
+
+    it('should calculate the exponential and update the input', function(){
+        totalExponential(base_input, power_input);
+        expect(base_input.value).to.equal('8');
+    });
+    it('should clear the power input', function(){
+        totalExponential(base_input, power_input);
+        expect(power_input.value).to.equal('');
+    });
+
   });
 
 });
