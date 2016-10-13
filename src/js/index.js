@@ -89,6 +89,48 @@ function addInput(value, input)
   input.value += value;
 }
 
+function inputValidation(value, current_value)
+{
+  if (doubleOperator(value, current_value))  {  return true;  }
+  if (initialOperator(value, current_value))  {  return true;  }
+  if (operatorAsPower(value))  {  return true;  }
+  if (doubleDots(value, current_value))  {  return true;  }
+  return false;
+}
+
+function doubleDots(value, current_value)
+{
+  if (value == '.')
+  {
+    var regex = /^[-+÷x]+$/;
+    for(i=current_value.length;i>-1;i--)
+    {
+       if (current_value[i] == '.') { return true; break; }
+       if (regex.test(current_value[i])) { return false; break; }
+    }
+    return false;
+  }
+
+}
+
+function operatorAsPower(value)
+{
+  var regex = /^[\-\+\÷\x\.]+$/;
+  return exp == true && regex.test(value);
+}
+
+function doubleOperator(value, current_value)
+{
+  var regex = /^[\-\+\÷\x\.]+$/;
+  return (regex.test(value) && regex.test(current_value.slice(-1)));
+}
+
+function initialOperator(value, current_value)
+{
+  var regex = /^[\+\÷\x\/\*]+$/;
+  return (regex.test(value) && current_value.length < 1);
+}
+
 function currentInput()
 {
   return exp == true ? power_input : base_input;
