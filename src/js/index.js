@@ -50,6 +50,45 @@ document.addEventListener("keydown", function(e) {
     }
 });
 
+function buttonClicked(val)
+{
+  var value = val;
+  if (value == 'exp'){
+    exp == true ? totalExponential(base_input, power_input) : exponential();
+    return;
+  }
+  switch (value)
+  {
+    case 'c':
+      clearInput(currentInput());
+      break;
+    case 'del':
+      deleteInput(currentInput());
+      break;
+    case '=':
+      exp == true ? totalExponential(base_input, power_input) : total(base_input);
+      break;
+    default:
+      addInput(value, currentInput());
+  }
+}
+
+function clearInput(input)
+{
+  input.value = '';
+}
+
+function deleteInput(input)
+{
+  input.value = input.value.slice(0,-1);
+}
+
+function addInput(value, input)
+{
+  if (inputValidation(value, input.value))  {  return;  }
+  input.value += value;
+}
+
 function currentInput()
 {
   return exp == true ? power_input : base_input;
