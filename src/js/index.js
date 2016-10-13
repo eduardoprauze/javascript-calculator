@@ -135,3 +135,51 @@ function currentInput()
 {
   return exp == true ? power_input : base_input;
 }
+
+function total(input)
+{
+  if (input.value == ""){ return; }
+  var equation = input.value.replace("÷", "/").replace("x", "*");
+  input.value = eval(equation);
+}
+
+function totalExponential(base_input, power_input)
+{
+  var base = base_input.value;
+  var power = power_input.value || '1';
+  base_input.value = Math.pow(base, power);
+  power_input.value = '';
+  exp = false;
+  expInputStyle(base_input, power_input);
+}
+
+function exponential()
+{
+  var input = base_input
+  if ( input.value.length < 1)  { return; }
+  if (exp == false)  { total(base_input); }
+  exp = exp == true ? false : true;
+  expInputStyle(base_input, power_input);
+}
+
+function expInputStyle(base_input, power_input)
+{
+  if (exp == true)
+  {
+    var font_size = '30px';
+    var padding_top = '20px';
+    var width = '270px';
+    var placeholder = 'enter the power';
+  }
+  else
+  {
+    var font_size = '40px';
+    var padding_top = '10px';
+    var width = '290px';
+    var placeholder = '';
+  }
+  base_input.style.fontSize = font_size;
+  base_input.style.paddingTop = padding_top;
+  base_input.style.width = width;
+  power_input.placeholder = placeholder;
+}
